@@ -1,0 +1,27 @@
+# Web framework
+fastapi
+uvicorn
+
+# UI
+streamlit
+
+# LLM + Agents
+openai
+langchain
+langgraph
+
+# Vector Database
+chromadb
+
+# File processing
+pypdf        # for PDFs
+python-docx  # for Word docs
+python-multipart
+
+# Environment & Config
+python-dotenv
+pydantic
+pydantic-settings
+
+# Testing
+pytest

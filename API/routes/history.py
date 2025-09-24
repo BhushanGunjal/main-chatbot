@@ -19,6 +19,7 @@ def add_message(message: Message):
     Add a chat message to history.
     """
     chat_history.append(message.dict())
+    print("message added: ",message)
     return {"status": "message added", "message": message}
 
 @router.get("/all")
@@ -26,6 +27,7 @@ def get_history():
     """
     Get the entire chat history.
     """
+    print("chat history: ", chat_history)
     return {"history": chat_history}
 
 @router.delete("/clear")

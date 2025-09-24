@@ -1,24 +1,22 @@
 # API/routes/upload.py
 
 from fastapi import APIRouter, File, UploadFile
-import shutil
+from API.models.upload_models import UploadResponse
 import os
 
 router = APIRouter()
 
-# Directory where files will be saved
-UPLOAD_DIR = "uploads"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
-
-@router.post("/")
+@router.post("/", response_model=UploadResponse)
 async def upload_file(file: UploadFile = File(...)):
     """
-    Upload a file and save it to the server.
+    Accepts a file upload and returns basic info.
+    Later we'll process it into embeddings for ChromaDB.
     """
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    contents = await file.read()
+    size_kb = round(len(contents) / 1024,2)
 
-    # Save file to disk
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-
-    return {"filename": file.filename, "status": "uploaded successfully"}
+    return UploadResponse(
+        filename=file.filename,
+        content_type=file.content_type,
+        size_kb=size_kb
+    )

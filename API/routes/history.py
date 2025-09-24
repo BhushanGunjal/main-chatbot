@@ -1,39 +1,20 @@
 # API/routes/history.py
 
 from fastapi import APIRouter
-from pydantic import BaseModel
-from typing import List
+from API.models.chat_models import ChatResponse
 
 router = APIRouter()
 
-# In-memory storage (resets when server restarts)
-chat_history: List[dict] = []
+dummy_history = [
+    {"reply": "Test Message 1"},
+    {"reply": "Test Message 2"},
+    {"reply": "Test Message 3"},
+]
 
-class Message(BaseModel):
-    sender: str   # e.g., "user" or "bot"
-    text: str
 
-@router.post("/add")
-def add_message(message: Message):
+@router.get("/", response_model=list[ChatResponse])
+async def get_history():
     """
-    Add a chat message to history.
+    Returns dummy chat history.
     """
-    chat_history.append(message.dict())
-    print("message added: ",message)
-    return {"status": "message added", "message": message}
-
-@router.get("/all")
-def get_history():
-    """
-    Get the entire chat history.
-    """
-    print("chat history: ", chat_history)
-    return {"history": chat_history}
-
-@router.delete("/clear")
-def clear_history():
-    """
-    Clear the chat history.
-    """
-    chat_history.clear()
-    return {"status": "history cleared"}
+    return [ChatResponse(**msg) for msg in dummy_history]

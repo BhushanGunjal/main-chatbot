@@ -8,7 +8,9 @@ collection = chroma_client.get_or_create_collection("chatbot_docs")
 
 def add_to_vector_db(doc_id: str, content: str, metadata: dict = None):
 
-    collection.delete(where={})
+    existing = collection.get()
+    if existing and "ids" in existing:
+        collection.delete(ids=existing["ids"])
 
     collection.add(
         ids=[doc_id],

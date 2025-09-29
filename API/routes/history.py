@@ -17,4 +17,7 @@ async def get_history():
     """
     Returns dummy chat history.
     """
+    # added temp for debugging
+    print("Chat history fetched")
+    # done 
     return [ChatResponse(**msg) for msg in dummy_history]

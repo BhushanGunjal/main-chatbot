@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from API.routes import chat, upload, history
 
 app = FastAPI(
-    title="Chatbot API",
+    title="API",
     description="Backend API for our LangGraph-powered chatbot",
     version="0.1.0",
 )
@@ -27,3 +27,4 @@ app.include_router(history.router, prefix="/history", tags=["History"])
 @app.get("/")
 def root():
     return {"message": "Chatbot API is running!"}
+

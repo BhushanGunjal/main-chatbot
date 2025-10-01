@@ -1,4 +1,4 @@
-
+## Phase Information
 
 ### 📂 Phase 1 — Setup & Configuration
 
@@ -42,8 +42,10 @@
 18. `UI/app.py` → connect to FastAPI, send chat, display response
 
 ---
-### FOLDER STRUCUTRE 
+## Folder Structure
 
+```text
+.
 MAIN-CHATBOT
 ├── AGENTS
 │   ├── graph.py
@@ -82,5 +84,22 @@ MAIN-CHATBOT
 ├── README.md
 ├── docker-compose.yml
 └── requirements.txt
+```
 ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

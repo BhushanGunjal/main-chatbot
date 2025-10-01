@@ -6,9 +6,12 @@ from docx import Document
 
 UPLOAD_DIR = "./uploads"
 
+# To ignore if already present
 nltk.download("punkt", quiet=True)
 nltk.download("punkt_tab", quiet=True)
 encoding = tiktoken.get_encoding("cl100k_base")
+
+
 
 def save_file(file) -> str:
     """
@@ -21,6 +24,8 @@ def save_file(file) -> str:
         f.write(file.file.read())
 
     return file_path
+
+
 
 def extract_text(file_path: str) -> str:
     """
@@ -47,23 +52,39 @@ def extract_text(file_path: str) -> str:
                 text.append(para.text)
         return "\n\n".join(text)
 
+
+
 def count_tokens(text: str) -> int:
     return len(encoding.encode(text))
 
-def chunk_text(text: str, max_tokens: int = 50, overlap_sentences: int = 1) -> list[str]:
+
+
+def chunk_text(text: str, filename: str = "unknown", max_tokens: int = 50, overlap_sentences: int = 1) -> list[str]:
     """
     Break text into chunks: paragraph -> sentences -> tokens
     """
     paragrahs = text.split("\n\n")
     chunks = []
+    chunk_index = 0
 
     for para in paragrahs:
         if not para.strip():
             continue
 
         if count_tokens(para) <= max_tokens:
-            chunks.append(para.strip())
+            chunks.append(
+                {
+                    "id": f"{filename}_{chunk_index}", 
+                    "text": para.strip(),
+                    "metadata": {
+                        "filename" : filename,
+                        "chunk_index": chunk_index,
+                        "token_count": count_tokens(para.strip())
+                        }
+                })
+
         else:
+
             sentences = nltk.sent_tokenize(para)
             current_chunk = []
             current_len = 0
@@ -72,17 +93,43 @@ def chunk_text(text: str, max_tokens: int = 50, overlap_sentences: int = 1) -> l
                 sent_len = count_tokens(sent)
 
                 if current_len + sent_len > max_tokens:
-                    chunks.append(" ".join(current_chunk).strip())
+                    chunktext = " ".join(current_chunk).strip() 
+                    chunks.append({
+                        "id": f"{filename}_{chunk_index}",
+                        "text": chunktext,
+                        "metadata": {
+                            "filename": filename,
+                            "chunk_index": chunk_index,
+                            "token_count": current_len
+                            }
+                        })
+                    chunk_index += 1
+
 
                     overlap = sentences[max(0, i - overlap_sentences):i]
                     current_chunk = overlap + [sent]
                     current_len = sum(count_tokens(s) for s in current_chunk)
+                    
                 else:
+
                     current_chunk.append(sent)
                     current_len += sent_len
 
+
             if current_chunk:
-                chunks.append(" ".join(current_chunk).strip())
+                chunktext = " ".join(current_chunk).strip()
+                chunks.append({
+                    "id": f"{filename}_{chunk_index}",
+                    "text": chunktext,
+                    "metadata": {
+                        "filename": filename,
+                        "chunk_index": chunk_index,
+                        "token_count": current_len
+                    }
+                })
+                chunk_index += 1
+
+
     print("Chunks: ", chunks) 
     return chunks
         

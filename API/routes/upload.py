@@ -24,7 +24,7 @@ async def upload_file(file: UploadFile = File(...)):
     # 2. Extract text (for now: txt only)
     content = extract_text(file_path)
 
-    chunktext = chunk_text(content)
+    chunktext = chunk_text(content, filename=file.filename)
 
     # 3. Store in vector DB
     add_to_vector_db(doc_id=file.filename, content=content, metadata={"path": file_path})

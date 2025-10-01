@@ -1,0 +1,11 @@
+{
+  "filename": "dummy.txt",
+  "content_type": "text/plain",
+  "size_kb": 1.5,
+  "status": "uploaded & indexed",
+  "chunks": [
+    "The field of Natural Language Processing (NLP) has evolved dramatically over the last decade. Early systems relied heavily on rule-based approaches, where linguists and programmers would manually craft complex grammars and heuristics. While effective for specific, narrow domains, these systems were brittle and could not scale to the complexity and nuance of general human language. For example, understanding sarcasm or context-specific jargon was nearly impossible.",
+    "The paradigm shifted with the advent of statistical methods and machine learning. Models began learning patterns directly from vast amounts of text data, such as the entire corpus of Wikipedia or Google Books. This led to significant improvements in tasks like machine translation and sentiment analysis. The introduction of deep learning, particularly with models like Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTM) networks, allowed for a better understanding of sequential information present in text.",
+    "Today, we are in the era of large-scale Transformer models, e.g., models like GPT-4 and its contemporaries. These models, with billions of parameters, have demonstrated remarkable capabilities in text generation, summarization, and complex reasoning. The primary challenge has now shifted from basic understanding to ensuring these models are safe, aligned with human values, and can be deployed efficiently. How will we manage the next generation of even more powerful models? The answer remains a topic of active research and debate."
+  ]
+}

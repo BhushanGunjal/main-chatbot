@@ -1,6 +1,6 @@
 from fastapi import APIRouter, File, UploadFile
 from API.models.upload_models import UploadResponse
-from UPLOAD.processor import save_file, extract_text
+from UPLOAD.processor import save_file, extract_text, chunk_text
 from UPLOAD.embeddings import add_to_vector_db
 
 router = APIRouter()
@@ -24,6 +24,8 @@ async def upload_file(file: UploadFile = File(...)):
     # 2. Extract text (for now: txt only)
     content = extract_text(file_path)
 
+    chunktext = chunk_text(content)
+
     # 3. Store in vector DB
     add_to_vector_db(doc_id=file.filename, content=content, metadata={"path": file_path})
 
@@ -31,5 +33,6 @@ async def upload_file(file: UploadFile = File(...)):
         filename=file.filename,
         content_type=file.content_type,
         size_kb=size_kb,
-        status="uploaded & indexed"
+        status="uploaded & indexed",
+        chunks=chunktext
     )

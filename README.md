@@ -40,5 +40,55 @@
 16. Update `AGENTS/reasoning.py` → OpenAI call
 17. Update `AGENTS/planner.py` → add retrieval → reasoning fallback
 
+
+# FOLDER STRUCUTRE 
+``
+MAIN-CHATBOT
+|->AGENTS
+| |->>graph.py
+| |->>orchestrator.py
+| |->>planner.py
+| |->>reasoning.py
+| |->>retrieval.py
+| |->>summarizer.py
+|
+|->API
+| |->>models
+| | |->>>chat_models.py
+| | |->>>upload_models.py
+| |->>routes
+| | |->>>chat.py
+| | |->>>history.py
+| | |->>>upload.py
+| |->>main.py
+|
+|->config
+| |->>logging.yaml
+| |->>settings.py
+|
+|->DB
+| |->>chroma
+|
+|->test
+| |->>test_agents.py
+| |->>test_api.py
+| |->>test_config.py
+| |->>test_upload.py
+|
+|->UI
+| |->>app.py
+|
+|->UPLOADS
+| |->>embeddings.py
+| |->>processor.py
+|
+|->uploads
+| |->>dummy.docx
+|
+|->.env
+|->docker-compose.yml
+|->README.md
+|->requirements.txt
+``
 ---
 

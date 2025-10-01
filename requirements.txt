@@ -25,3 +25,9 @@ pydantic-settings
 
 # Testing
 pytest
+
+# Text processing
+nltk
+tiktoken
+pdfplumber
+python-docx

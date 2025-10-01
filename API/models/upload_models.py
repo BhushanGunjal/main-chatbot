@@ -5,3 +5,4 @@ class UploadResponse(BaseModel):
     content_type: str
     size_kb: float
     status: str
+    chunks: list[str]

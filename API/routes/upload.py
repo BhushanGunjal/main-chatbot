@@ -26,8 +26,8 @@ async def upload_file(file: UploadFile = File(...)):
 
     chunktext = chunk_text(content, filename=file.filename)
 
-    # 3. Store in vector DB
-    add_to_vector_db(doc_id=file.filename, content=content, metadata={"path": file_path})
+    # # 3. Store in vector DB
+    # add_to_vector_db(doc_id=file.filename, content=content, metadata={"path": file_path})
 
     return UploadResponse(
         filename=file.filename,

@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import routers (we'll create these files next)
-from API.routes import chat, upload, history
+from API.routes import chat, upload, history, index
 
 app = FastAPI(
     title="API",
@@ -23,6 +23,7 @@ app.add_middleware(
 app.include_router(chat.router, prefix="/chat", tags=["Chat"])
 app.include_router(upload.router, prefix="/upload", tags=["Upload"])
 app.include_router(history.router, prefix="/history", tags=["History"])
+app.include_router(index.router, prefix="/index", tags=["Index"])
 
 @app.get("/")
 def root():

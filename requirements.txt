@@ -31,3 +31,6 @@ nltk
 tiktoken
 pdfplumber
 python-docx
+
+# Embeddings
+sentence-transformers

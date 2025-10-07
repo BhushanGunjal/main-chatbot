@@ -20,4 +20,4 @@ def run_graph(user_message:str) -> str:
         response = reasoning_agent(user_message)
     else:
         response = summary_agent(user_message)
-    return response
+    return retrieval_agent(user_message)

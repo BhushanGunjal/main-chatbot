@@ -4,9 +4,14 @@ def retrieval_agent(user_message: str) -> str:
     """
     Retrieval agent
     """
-    results = query_vector_db(user_message, n_results=2)
+    results = query_vector_db(user_message, n_results=1)
     
-    if not results or results.get("documents") or not results.get("metadatas:"):
+    if (
+        not results
+        or "documents" not in results
+        or not results["documents"]
+        or not results["documents"][0]
+    ):
             return f"[Retrieval Agent] No relevant info found."
     
     docs = results["documents"][0]

@@ -11,5 +11,7 @@ class UploadResponse(BaseModel):
     size_kb: float
     status: str
     chunks: list[Chunk]
+    index_status: str
+    index_counts: int
 
 

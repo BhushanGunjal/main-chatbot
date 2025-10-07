@@ -26,11 +26,11 @@ def sanitize_metadata(metadata: dict) -> dict:
         if isinstance(v, (str, int, float, bool)) or v is None:
             clean_metadata[k] = v
         else:
-            print(f"[WARN] Non-primitive metadata value for key '{k}': {type(v).__name__} -> serializing to string")
+            print(f"#############################################[WARN] Non-primitive metadata value for key '{k}': {type(v).__name__} -> serializing to string")
             try:
                 clean_metadata[k] = json.dumps(v)
             except Exception as e:
-                print(f"[ERROR] Failed to serialize metadata key '{k}': {e}")
+                print(f"#############################################[ERROR] Failed to serialize metadata key '{k}': {e}")
                 clean_metadata[k] = str(v)  # fallback as string
 
     return clean_metadata

@@ -2,6 +2,7 @@ from fastapi import APIRouter, File, UploadFile
 from API.models.upload_models import UploadResponse
 from UPLOAD.processor import save_file, extract_text, chunk_text
 from UPLOAD.embeddings import add_to_vector_db
+from UPLOAD.indexer import index_chunks_list
 
 router = APIRouter()
 
@@ -26,13 +27,16 @@ async def upload_file(file: UploadFile = File(...)):
 
     chunktext = chunk_text(content, filename=file.filename)
 
-    # # 3. Store in vector DB
-    # add_to_vector_db(doc_id=file.filename, content=content, metadata={"path": file_path})
+    print(f"#############################################Debug: {len(chunktext)} chunks created for file {file.filename}")
+    # Index chunks using shared function
+    index_response = index_chunks_list(chunktext)
 
     return UploadResponse(
         filename=file.filename,
         content_type=file.content_type,
         size_kb=size_kb,
-        status="uploaded & indexed",
-        chunks=chunktext
+        status="uploaded",
+        chunks=chunktext,
+        index_status=index_response.status,
+        index_counts=index_response.indexed_chunks
     )

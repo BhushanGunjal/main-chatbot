@@ -2,11 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import routers (we'll create these files next)
-from API.routes import chat, upload, history, index
+from API.routes import chat, upload, summary, index
 
 app = FastAPI(
     title="API",
-    description="Backend API for our LangGraph-powered chatbot",
+    description="ChatBot Backend API",
     version="0.1.0",
 )
 
@@ -22,7 +22,7 @@ app.add_middleware(
 # Register routes
 app.include_router(chat.router, prefix="/chat", tags=["Chat"])
 app.include_router(upload.router, prefix="/upload", tags=["Upload"])
-app.include_router(history.router, prefix="/history", tags=["History"])
+app.include_router(summary.router, prefix="/summary", tags=["Summary"])
 app.include_router(index.router, prefix="/index", tags=["Index"])
 
 @app.get("/")
